@@ -1,8 +1,8 @@
 import { SignUpInput } from "@itachiuchiha/medium-blog";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
-import { BACKEND_URL } from "../../config";
+import { Link, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 const Auth = ({ type }: { type: "signin" | "signup" }) => {
   const [postInputs, setPostInputs] = useState<SignUpInput>({
@@ -11,11 +11,19 @@ const Auth = ({ type }: { type: "signin" | "signup" }) => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   async function sendRequest() {
     try {
-      const response = await axios.post(`${BACKEND_URL}/auth/v1/user/${type}`);
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/user/${type}`,
+        postInputs
+      );
+      const { jwt: token } = response.data;
+      localStorage.setItem("token", token);
+      navigate("/blogs");
     } catch (error) {
-      console.error(error);
+      alert("Error while signing up");
     }
   }
   return (
@@ -79,6 +87,7 @@ const Auth = ({ type }: { type: "signin" | "signup" }) => {
             <button
               type="button"
               className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 mt-5 w-full"
+              onClick={sendRequest}
             >
               {type === "signin" ? "Sign In" : "Sign Up"}
             </button>
