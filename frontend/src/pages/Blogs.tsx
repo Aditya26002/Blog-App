@@ -10,7 +10,7 @@ const Blogs = () => {
     return (
       <>
         <Appbar />
-        <div className="h-screen flex flex-col items-center ">
+        <div className="h-screen flex flex-col items-center pt-16">
           <BlogSkeleton />
           <BlogSkeleton />
           <BlogSkeleton />
@@ -22,15 +22,14 @@ const Blogs = () => {
   return (
     <>
       <Appbar />
-
-      <div className="h-screen flex flex-col items-center ">
-        <div className="max-w-xl overflow-y-scroll no-scrollbar">
+      <div className="flex flex-col items-center pt-16 z-0 h-screen">
+        <div className="max-w-xl w-full overflow-y-auto no-scrollbar">
           {blogs.map((blog) => (
             <BlogCard
               key={blog.id}
               id={blog.id}
               authtorName={blog.author.name || "Anonymous"}
-              publishedDate={"ja"}
+              publishedDate={"2 Dec"}
               title={blog.title}
               content={blog.content}
             />

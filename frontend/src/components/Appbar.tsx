@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Appbar = () => {
   return (
-    <nav className="py-4 px-10 sticky top-0 shadow-md z-50">
+    <nav className="bg-white py-4 px-10 sticky top-0 shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link
           to="/blogs"
